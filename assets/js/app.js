@@ -148,6 +148,29 @@ function draw() {
             dy = -dy;
         }
     }
+    // Bounce back the ball off of the vertical sides of the canvas triangle
+    if(x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+
+    // When ever the right button is pressed move the paddle in the right inceasing its place by 7 in the x-direction
+    if(rightPressed) {
+        paddleX += 7;
+        if(paddleX + paddleWidth > canvas.width) {
+            paddleX = canvas.width - paddleWidth;
+        }
+    }
+    // When ever the left button is pressed move the paddle in the left decreasing its place by 7 in the x-direction
+    else if(leftPressed) {
+        paddleX -= 7;
+        if(paddleX < 0) {
+            paddleX = 0;
+        }
+    }
+
+    // Update x and y values every time to keep the ball moving
+    x += dx;
+    y += dy;
 
 }
 let interval = setInterval(draw, 10);
