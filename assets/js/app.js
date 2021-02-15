@@ -148,6 +148,7 @@ function draw() {
             dy = -dy;
         }
     }
+
     // Bounce back the ball off of the vertical sides of the canvas triangle
     if(x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -171,6 +172,27 @@ function draw() {
     // Update x and y values every time to keep the ball moving
     x += dx;
     y += dy;
-
 }
 let interval = setInterval(draw, 10);
+
+// Added key event listeners for user to move around the paddle
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = true;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = false;
+    }
+}
