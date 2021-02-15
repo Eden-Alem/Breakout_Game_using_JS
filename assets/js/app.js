@@ -29,3 +29,9 @@ let leftPressed = false;
 
 let userScore = 0;
 let compScore = 0;
+
+// Reload the page on the button restart being clicked
+function restartGame(e) {
+    document.location.reload();
+    clearInterval(interval);
+}
