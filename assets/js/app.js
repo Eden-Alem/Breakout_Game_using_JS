@@ -96,3 +96,58 @@ function drawLine() {
     ctx.strokeStyle = "white";
     ctx.stroke();
 }
+
+// The main function where the canvas is displayed on by invoking the other drawing methods too
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();  
+    drawPaddle();  
+    drawPaddle2();
+    drawLine();
+
+    // To bounce back the ball off of the top and work on the simple AI of making the computer play
+    if(y + dy < paddleHeight2 + ballRadius) {
+        if((x > paddleX2) && (x < paddleX2 + paddleWidth2)) {
+            dy = -dy;                       
+        }
+        else {
+            // Generate a random number and by checking for not to get the paddle out of the canvas rectangle check for a single 
+            // number and fail to move to the left to bounce back the ball but move the paddle to a certain place just not enough to bounce the ball.
+            let a = Math.floor(Math.random() * (Math.floor(5) - 1) + 1);
+
+            while (paddleX2 > x) { 
+                if(a === 5 || a === 1 || a === 4 || a === 2) {
+                    paddleX2 -= 7;
+                } else {
+                    userScore += 1;
+                    paddleX2 -= 50;
+                    break;
+                }                
+            }
+
+            while (paddleX2 < x && paddleX2 + paddleWidth2 < canvas.width) {  
+                if(a === 4 || a === 1 || a === 3 || a === 2) {
+                    paddleX2 += 7;
+                } else  {
+                    userScore += 1;
+                    paddleX2 += 50;
+                    break;
+                }                
+            }
+
+            dy = -dy; 
+        }
+    } 
+    // The paddle off of the bottom of the canvas if the ball is in touch with paddle bounce back else count as a score for computer
+    else if((y + dy) > (canvas.height-ballRadius)) {
+        if((x > paddleX) && (x < paddleX + paddleWidth)) {
+            dy = -dy;
+        }
+        else {
+            compScore += 1;
+            dy = -dy;
+        }
+    }
+
+}
+let interval = setInterval(draw, 10);
