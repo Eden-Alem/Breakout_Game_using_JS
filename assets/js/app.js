@@ -35,3 +35,23 @@ function restartGame(e) {
     document.location.reload();
     clearInterval(interval);
 }
+
+// Remove canvas and other elements and display result of user and computer based on conditions
+function endGame(e) {    
+    canvas.remove();
+    end.remove();
+    restart.textContent = `Play again`;
+    restart.style.width = '10rem';
+    worl.style.height = '150px';
+    named.textContent = `AND Breakout Game`;
+    named.style.padding = "20px";
+    if (userScore > compScore) {
+        worl.textContent = `${userScore} - ${compScore}:
+        Congratulations! :) You have won!`;        
+    } else if (compScore > userScore) {
+        worl.textContent = `${userScore} - ${compScore}:
+        You lost! :( Try again`;
+    } else {
+        worl.textContent = `${userScore} - ${compScore}: It's a tie! Try again`;
+    }    
+}
